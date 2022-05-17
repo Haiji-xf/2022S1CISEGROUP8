@@ -1,32 +1,147 @@
 //Done all together 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { Component } from "react";
 //import { useForm } from "react-hook-form";
-//import axios from 'axios';
+//import { useForm } from "react-hook-form";
+import axios from 'axios';
 
-const SubmissionForm = () => {
-  const { register, handleSubmit } = useForm();
-  const [result, setResult] = useState("");
-  const onSubmit = (data) => setResult(JSON.stringify(data));
+class SubmissionForm extends Component{
+  constructor()
+{ 
+  super();
+  this.state = {
+    title: '',
+    author: '',
+    source: '',
+    year:'',
+    doi:'',
+    practice:'',
+    claimed: ''
+  }
+}
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-    
-      <input {...register("title")} placeholder="Title" />
-      <p><input {...register("authors")} placeholder="Authors" /></p>
-      <p><input {...register("source")} placeholder="Source" /></p> 
-      <p><input {...register("pubyear")} placeholder="Publication Year" /></p>
-      <p><input {...register("doi")} placeholder="DOI" /></p>
-     
-      <select {...register("sepractice")}>
-        <option value="">Select SE practice...</option>
-        <option value="TDD">TDD</option>
-        <option value="Mob Programming">Mob Programmin</option>
-      </select>
+  onChange = e => {
+  this.setState({ [e.target.name]: e.target.value });
+  };  
 
-      <p>{result}</p>
-      <input type="submit" />
+  onSubmit = e => {
+    e.preventDefault();
+
+    const data = {
+      title: this.state.title,
+      author: this.state.author,
+      source: this.state.source,
+      description: this.state.description,
+      published_date: this.state.published_date,
+      publisher: this.state.publisher,
+      claimed: this.state.claimed
+    };
+
+    axios.post("http://localhost:5555/api/article/", data)
+    .then(res => {
+      this.setState({
+        title: '',
+        author: '',
+        source: '',
+        year:'',
+        doi:'',
+        practice:'',
+        claimed: ''
+      })
+      this.props.history.push('/');
+    })
+    .catch(error => {
+      console.log("Error in submission");
+    })
+
+  };
+  render () {
+
+  return(
+    <form noValidate onSubmit= {this.onSubmit}>
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'title' 
+        placeholder = "title" 
+        value={this.state.title} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'author' 
+        placeholder = "author" 
+        value={this.state.author} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'source' 
+        placeholder = "source" 
+        value={this.state.source} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'year' 
+        placeholder = "year" 
+        value={this.state.year} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'doi' 
+        placeholder = "doi" 
+        value={this.state.doi} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'practice' 
+        placeholder = "practice" 
+        value={this.state.practice} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <div className="group">
+        <input 
+        type='text' 
+        name = 'claimed' 
+        placeholder = "claimed" 
+        value={this.state.claimed} 
+        onChange = {this.onChange}>
+        </input>
+        <br />
+      </div>
+
+      <input
+        type="submit"
+      />
     </form>
   );
+  }
+
 }
 export default SubmissionForm;
+
