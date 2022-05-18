@@ -1,15 +1,27 @@
+/*
+ * @Author: Tai Zhang
+ */
 //All pages done together
 
 import React from "react";
- 
-function Home ()  {
-    return (
+
+function Home() {
+  return (
+    <div>
+      <h2> How to use Good Juice Lib(GJL)</h2>
+      <p>Submit your prefered article in Submit an Article page</p>
+      <p>Browse articles in the database via Select the Practice page</p>
       <div>
-        <h2> How to use SEPER</h2>
-        <p>I am not sure what to put on the home page</p>
-        <p>A nice logo? Instructions?</p>
+        <p>
+          <br></br>
+          Wish You Happy
+          <br></br>
+          <img src={require('../assets/happy.gif')} alt="" />
+        </p>
       </div>
-    );
-  }
- 
+
+    </div>
+  );
+}
+
 export default Home;

@@ -13,9 +13,11 @@ class SubmissionForm extends Component {
       source: '',
       year: '',
       doi: '',
-      practice: '',
       claimed: '',
       evidence: '',
+      moderated: false,
+      analyzed: false,
+      practice: '',
     }
   }
 
@@ -34,6 +36,9 @@ class SubmissionForm extends Component {
       doi: this.state.doi,
       claimed: this.state.claimed,
       evidence: this.state.evidence,
+      moderated: this.state.moderated,
+      analyzed: this.state.analyzed,
+      practice: this.state.practice,
     };
 
     axios.post("http://localhost:5555/api/article/", data)
@@ -44,9 +49,11 @@ class SubmissionForm extends Component {
           source: '',
           year: '',
           doi: '',
-          practice: '',
           claimed: '',
           evidence: '',
+          moderated: false,
+          analyzed: false,
+          practice: '',
         })
         this.props.history.push('/');
       })
@@ -146,14 +153,12 @@ class SubmissionForm extends Component {
           </input>
           <br />
         </div>
-
         <input
           type="submit"
         />
       </form>
     );
   }
-
 }
-export default SubmissionForm;
 
+export default SubmissionForm;

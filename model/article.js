@@ -30,6 +30,15 @@ const ArticleSchema = new mongoose.Schema({
   evidence: {
     type: String,
   },
+  moderated: {
+    type: Boolean,
+  },
+  analyzed: {
+    type: Boolean,
+  },
+  practice: {
+    type: String,
+  }
 });
 
 module.exports = Article = mongoose.model('article', ArticleSchema);

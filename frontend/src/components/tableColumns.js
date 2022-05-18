@@ -1,7 +1,6 @@
-/*
- * @Author: Tai Zhang
- */
+
 const tablecolumns = [
+
   {
     Header: 'Title',
     accessor: 'title'
@@ -29,8 +28,10 @@ const tablecolumns = [
   {
     Header: 'Level of Evidence',
     accessor: 'evidence'
-  }
+  },
 ]
+
+let moderated = String;
 
 module.exports = tablecolumns
   //export default tablecolumns;
