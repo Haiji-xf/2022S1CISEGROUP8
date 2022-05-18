@@ -30,8 +30,8 @@ class SubmissionForm extends Component {
       title: this.state.title,
       author: this.state.author,
       source: this.state.source,
-      year: this.state.source,
-      doi: this.state.source,
+      year: this.state.year,
+      doi: this.state.doi,
       claimed: this.state.claimed,
       evidence: this.state.evidence,
     };
