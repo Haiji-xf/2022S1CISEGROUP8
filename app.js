@@ -1,4 +1,7 @@
 
+/*
+ * @Author: Tai Zhang
+ */
 require("dotenv").config({ path: './.env' });
 const express = require('express');
 
@@ -24,3 +27,7 @@ app.use('/api/article', article);
 const port = process.env.PORT || 5555;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+app.get('/', (req, res) => {
+    res.send("API is working");
+});
