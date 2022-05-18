@@ -1,32 +1,38 @@
-import React  from "react";
-import { BrowserRouter, Route,Routes,NavLink} from 'react-router-dom';
+/*
+ * @Author: Tai Zhang
+ */
+import React from "react";
+import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom';
 import Home from "./pages/Home";
 import SEPracticePage from "./pages/SEPracticePage";
-import SubmitArticle from "./pages/Submit-Article"; 
+import SubmitArticle from "./pages/Submit-Article";
 import NotFoundPage from "./pages/404";
+import Moderator from "./pages/Moderator";
 
 const App = () => {
-    return (
-        <BrowserRouter>
-        <div>
-          <h1>Software Engineering Practice Evidence Repository (SEPER)</h1>
-            <ul className="header">
-            <li><NavLink end to = "/">Home</NavLink></li>
-            <li><NavLink to = "/SEPracticePage">Select the Practice</NavLink></li>
-            <li><NavLink to = "/SubmitArticle">Submit an Article</NavLink></li>
-            </ul>
-          <div className="content">
-           <Routes>
+  return (
+    <BrowserRouter>
+      <div>
+        <h1>Good Juice Lib</h1>
+        <ul className="header">
+          <li><NavLink end to="/">Home</NavLink></li>
+          <li><NavLink to="/SEPracticePage">Select the Practice</NavLink></li>
+          <li><NavLink to="/SubmitArticle">Submit an Article</NavLink></li>
+          <li><NavLink to="/Moderator">Moderater Page</NavLink></li>
+        </ul>
+        <div className="content">
+          <Routes>
             <Route path="/" element={<Home />} />
-            <Route  path="/SEPracticePage" element={<SEPracticePage />} />
-            <Route  path="/SubmitArticle" element={<SubmitArticle />} />      
-            <Route  path="*" element={<NotFoundPage />} />  
-           </Routes>
-          </div>
+            <Route path="/SEPracticePage" element={<SEPracticePage />} />
+            <Route path="/SubmitArticle" element={<SubmitArticle />} />
+            <Route path="/Moderator" element={<Moderator />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
         </div>
-        </BrowserRouter>
-    );
+      </div>
+    </BrowserRouter>
+  );
 }
- 
+
 export default App;
 
