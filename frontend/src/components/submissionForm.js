@@ -4,24 +4,24 @@ import React, { Component } from "react";
 //import { useForm } from "react-hook-form";
 import axios from 'axios';
 
-class SubmissionForm extends Component{
-  constructor()
-{ 
-  super();
-  this.state = {
-    title: '',
-    author: '',
-    source: '',
-    year:'',
-    doi:'',
-    practice:'',
-    claimed: ''
+class SubmissionForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      title: '',
+      author: '',
+      source: '',
+      year: '',
+      doi: '',
+      practice: '',
+      claimed: '',
+      evidence: '',
+    }
   }
-}
 
   onChange = e => {
-  this.setState({ [e.target.name]: e.target.value });
-  };  
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -30,116 +30,128 @@ class SubmissionForm extends Component{
       title: this.state.title,
       author: this.state.author,
       source: this.state.source,
-      description: this.state.description,
-      published_date: this.state.published_date,
-      publisher: this.state.publisher,
-      claimed: this.state.claimed
+      year: this.state.source,
+      doi: this.state.source,
+      claimed: this.state.claimed,
+      evidence: this.state.evidence,
     };
 
     axios.post("http://localhost:5555/api/article/", data)
-    .then(res => {
-      this.setState({
-        title: '',
-        author: '',
-        source: '',
-        year:'',
-        doi:'',
-        practice:'',
-        claimed: ''
+      .then(res => {
+        this.setState({
+          title: '',
+          author: '',
+          source: '',
+          year: '',
+          doi: '',
+          practice: '',
+          claimed: '',
+          evidence: '',
+        })
+        this.props.history.push('/');
       })
-      this.props.history.push('/');
-    })
-    .catch(error => {
-      console.log("Error in submission");
-    })
+      .catch(error => {
+        console.log("Error in submission");
+      })
 
   };
-  render () {
+  render() {
 
-  return(
-    <form noValidate onSubmit= {this.onSubmit}>
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'title' 
-        placeholder = "title" 
-        value={this.state.title} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+    return (
+      <form noValidate onSubmit={this.onSubmit}>
+        <div className="group">
+          <input
+            type='text'
+            name='title'
+            placeholder="title"
+            value={this.state.title}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'author' 
-        placeholder = "author" 
-        value={this.state.author} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+        <div className="group">
+          <input
+            type='text'
+            name='author'
+            placeholder="author"
+            value={this.state.author}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'source' 
-        placeholder = "source" 
-        value={this.state.source} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+        <div className="group">
+          <input
+            type='text'
+            name='source'
+            placeholder="source"
+            value={this.state.source}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'year' 
-        placeholder = "year" 
-        value={this.state.year} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+        <div className="group">
+          <input
+            type='text'
+            name='year'
+            placeholder="year"
+            value={this.state.year}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'doi' 
-        placeholder = "doi" 
-        value={this.state.doi} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+        <div className="group">
+          <input
+            type='text'
+            name='doi'
+            placeholder="doi"
+            value={this.state.doi}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'practice' 
-        placeholder = "practice" 
-        value={this.state.practice} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+        <div className="group">
+          <input
+            type='text'
+            name='practice'
+            placeholder="practice"
+            value={this.state.practice}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <div className="group">
-        <input 
-        type='text' 
-        name = 'claimed' 
-        placeholder = "claimed" 
-        value={this.state.claimed} 
-        onChange = {this.onChange}>
-        </input>
-        <br />
-      </div>
+        <div className="group">
+          <input
+            type='text'
+            name='claimed'
+            placeholder="claimed"
+            value={this.state.claimed}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
 
-      <input
-        type="submit"
-      />
-    </form>
-  );
+        <div className="group">
+          <input
+            type='text'
+            name='evidence'
+            placeholder="evidence"
+            value={this.state.evidence}
+            onChange={this.onChange}>
+          </input>
+          <br />
+        </div>
+
+        <input
+          type="submit"
+        />
+      </form>
+    );
   }
 
 }

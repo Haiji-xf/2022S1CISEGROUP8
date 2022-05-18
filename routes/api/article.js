@@ -1,3 +1,6 @@
+/*
+ * @Author: Tai Zhang
+ */
 // routes/api/article.js
 const express = require('express');
 const router = express.Router();
@@ -12,9 +15,16 @@ router.get('/test', (req, res) => res.send('book route testing!'));
 // @description add/save book
 // @access Public
 router.post('/', (req, res) => {
-    Article.create(req.body)
-      .then(Article => res.json({ msg: 'Article added successfully' }))
-      .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
-  });
+  Article.create(req.body)
+    .then(Article => res.json({ msg: 'Article added successfully' }))
+    .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
+});
 
-  module.exports = router;
+module.exports = router;
+
+router.get('/', (req, res) => {
+  Article.find()
+    .then(Article => res.json(Article))
+    .catch(err => res.status(404).json({ noarticlefound: 'No Articles are Found' }));
+
+});

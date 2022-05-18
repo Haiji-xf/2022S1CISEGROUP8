@@ -1,3 +1,6 @@
+/*
+ * @Author: Tai Zhang
+ */
 const mongoose = require('mongoose');
 
 const ArticleSchema = new mongoose.Schema({
@@ -12,18 +15,21 @@ const ArticleSchema = new mongoose.Schema({
   source: {
     type: String
   },
-  published_year: {
+  year: {
     type: String
   },
   doi: {
-    type: String
+    type: String,
   },
   practice: {
     type: String,
   },
   claimed: {
     type: String,
-  }
+  },
+  evidence: {
+    type: String,
+  },
 });
 
 module.exports = Article = mongoose.model('article', ArticleSchema);
