@@ -9,7 +9,7 @@ import env from "../env";
 import Styles from "../components/tableStyle";
 import Table from "../components/evidenceTable";
 
-class AdminTable extends Component {
+class AnalyzeTable extends Component {
     constructor() {
         super();
         return;
@@ -22,8 +22,8 @@ class AdminTable extends Component {
         articles: [],
         tableadmin: [
             {
-                Header: 'Moderated',
-                accessor: 'moderated',
+                Header: 'Analyzed',
+                accessor: 'analyzed',
                 Cell: (row) => {
                     return (
                         <input
@@ -31,18 +31,18 @@ class AdminTable extends Component {
                         defaultChecked={row.value === true ? true : false}
                             onClick={(e) => {
                                     console.log(this.state.articles[row.row.id]["_id"])
-                                    console.log(this.state.articles[row.row.id]["moderated"])
+                                    console.log(this.state.articles[row.row.id]["analyzed"])
                                     let test = this.state.articles;
-                                    test[row.row.id]["moderated"] = !test[row.row.id]["moderated"];
+                                    test[row.row.id]["analyzed"] = !test[row.row.id]["analyzed"];
                                     this.setState({
                                         articles : test
                                     })
                                     let id = test[row.row.id]["_id"];
                                     let index = test[row.row.id]
                                     axios.put(env.url + "/" +  id, index)
-                                    .then((res) => window.alert("modification successfully"))
-                                    .catch((err) => console.error("cannot modify"));
-                                    console.log(this.state.articles[row.row.id]["moderated"]);
+                                    .then((res) => window.alert("analyzed successfully"))
+                                    .catch((err) => console.error("cannot analyzed"));
+                                    console.log(this.state.articles[row.row.id]["analyzed"]);
                                     //this.clearRows(parseInt(row.row.id));
                             }}
                         >
@@ -95,7 +95,7 @@ class AdminTable extends Component {
                 let tempData = [];
                 console.log(res.data);
                 tempData = res.data.filter(
-                    (item) => item["moderated"] === false && item["analyzed"] === false
+                    (item) => item["moderated"] === true && item["analyzed"] === false
                 );
                 this.setState({
                     articles: tempData
@@ -119,7 +119,7 @@ class AdminTable extends Component {
         }
         return (
             <div>
-                <h2>Welcom Moderator, Please check the Articles</h2>
+                <h2>Welcom Analyst, Please check the Articles</h2>
                 <Dropdown />
                 <Styles>
                     <Table
@@ -135,4 +135,4 @@ class AdminTable extends Component {
     }
 }
 //export default is to export everything
-export default AdminTable;
+export default AnalyzeTable;

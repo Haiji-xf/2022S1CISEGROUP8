@@ -22,11 +22,19 @@ router.post('/', (req, res) => {
 
 
 
-router.get('/', (req, res) => {
-  Article.find()
-    .then(Article => res.json(Article))
-    .catch(err => res.status(404).json({ noarticlefound: 'No Articles are Found' }));
+router.put("/:id", async (req, res, next) =>{
+  console.log(req.body.id);
+  console.log(req.params.id);
+  var dataUpdate = req.body;
+  var idUpdate = {_id : req.params.id};
+  var newData= { $set: dataUpdate };
+  Article.updateOne(idUpdate, newData, (err, res) =>{
+    if(err)
+      console.log("Something Wrong");
+    else
+      console.log("Successfully update");
 
+  });
 });
 
 router.put('/:id', (req, res) => {

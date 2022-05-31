@@ -8,6 +8,7 @@ import SEPracticePage from "./pages/SEPracticePage";
 import SubmitArticle from "./pages/Submit-Article";
 import NotFoundPage from "./pages/404";
 import Moderator from "./pages/Moderator";
+import Analyze from "./pages/Analyze";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <li><NavLink to="/SEPracticePage">Select the Practice</NavLink></li>
           <li><NavLink to="/SubmitArticle">Submit an Article</NavLink></li>
           <li><NavLink to="/Moderator">Moderater Page</NavLink></li>
+          <li><NavLink to="/Analyze">Analyze Page</NavLink></li>
         </ul>
         <div className="content">
           <Routes>
@@ -26,6 +28,7 @@ const App = () => {
             <Route path="/SEPracticePage" element={<SEPracticePage />} />
             <Route path="/SubmitArticle" element={<SubmitArticle />} />
             <Route path="/Moderator" element={<Moderator />} />
+            <Route path="/Analyze" element={<Analyze />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

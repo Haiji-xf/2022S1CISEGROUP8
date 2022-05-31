@@ -10,7 +10,7 @@ const Moderator = () => {
     // };
     return (
         <div>
-            <AdminTable isModerator={true} />
+            <AdminTable />
 
         </div>
     );
