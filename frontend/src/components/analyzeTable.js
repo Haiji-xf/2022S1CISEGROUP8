@@ -40,7 +40,6 @@ class AnalyzeTable extends Component {
                                     let id = test[row.row.id]["_id"];
                                     let index = test[row.row.id]
                                     axios.put(env.url + "/" +  id, index)
-                                    .then((res) => window.alert("analyzed successfully"))
                                     .catch((err) => console.error("cannot analyzed"));
                                     console.log(this.state.articles[row.row.id]["analyzed"]);
                                     //this.clearRows(parseInt(row.row.id));
@@ -104,6 +103,7 @@ class AnalyzeTable extends Component {
     }
     
     update(event) {
+        window.alert("analyzed successfully");
         window.location.reload();
     }
 

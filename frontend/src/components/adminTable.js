@@ -40,7 +40,6 @@ class AdminTable extends Component {
                                     let id = test[row.row.id]["_id"];
                                     let index = test[row.row.id]
                                     axios.put(env.url + "/" +  id, index)
-                                    .then((res) => window.alert("modification successfully"))
                                     .catch((err) => console.error("cannot modify"));
                                     console.log(this.state.articles[row.row.id]["moderated"]);
                                     //this.clearRows(parseInt(row.row.id));
@@ -104,6 +103,7 @@ class AdminTable extends Component {
     }
     
     update(event) {
+        window.alert("modification successfully");
         window.location.reload();
     }
 
