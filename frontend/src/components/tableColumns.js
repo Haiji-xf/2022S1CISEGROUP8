@@ -29,8 +29,8 @@ const tablecolumns = [
   {
     Header: 'Level of Evidence',
     accessor: 'evidence'
-  }
+  },
+  
 ]
 
 module.exports = tablecolumns
-  //export default tablecolumns;

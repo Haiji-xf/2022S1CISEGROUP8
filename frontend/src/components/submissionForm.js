@@ -16,6 +16,8 @@ class SubmissionForm extends Component {
       practice: '',
       claimed: '',
       evidence: '',
+      moderated: false,
+      analyzed: false,
     }
   }
 
@@ -32,6 +34,7 @@ class SubmissionForm extends Component {
       source: this.state.source,
       year: this.state.year,
       doi: this.state.doi,
+      practice: this.state.practice,
       claimed: this.state.claimed,
       evidence: this.state.evidence,
     };
@@ -47,6 +50,7 @@ class SubmissionForm extends Component {
           practice: '',
           claimed: '',
           evidence: '',
+
         })
         this.props.history.push('/');
       })

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import articles from "../dummyData/articles";
 
 import Styles from "../components/tableStyle";
 import Table from "../components/evidenceTable";
@@ -8,28 +7,22 @@ import Dropdown from "../components/dropDown";
 
 //this is an env.js file in src folder, import files must be located inside the src folder.
 import env from "../env";
-import SEPractices from "../dummyData/SEPractices";
 import axios from "axios";
 import '../App.css';
 
-const optionItems = SEPractices.map((SEPractice) => (
-  <option key={SEPractice.practice}>{SEPractice.practice}</option>
-));
 
 class SEPracticePage extends Component {
 
   //this state is used for select articles
-  //displayedArticle is used for filter if needed
-
+  //Create a constructor for articles.
   constructor(props) {
     super(props);
     this.state = {
       articles: [],
-      displayedArticles: [],
     };
   }
-
   //this is called, before browser render the page 
+  //Get data from the database, if no data return then it will log the error message
   componentDidMount() {
     axios.get(env.url)
       .then(res => {
@@ -37,35 +30,27 @@ class SEPracticePage extends Component {
         this.setState({
           articles: res.data
         })
-        /*
-        //update the state then render it again
-        this.setState({
-          //filter is used for future features: modera & analys
-          articles: res.data.filter((item) => item["Passed"]),
-        });
-        */
       }).catch((e) => console.log("No Articles are Found"));
   }
 
+
+  //Render the page
   render() {
     const articles = this.state.articles;
     console.log("PrintBook: " + articles);
     let articleList;
-
     if (!articles) {
       articleList = "Sorry, there is no book in database.";
     } else {
-      articleList = articles.map((article, k) =>
-        <Table article={article} key={k} />);
+      articleList = articles;
     }
-
     return (
       <div>
         <h2>Select SE Practice to get evidence for the claimed benefits</h2>
         <Dropdown />
         <Styles>
           <Table
-            data={articles}
+            data={articleList}
             columns={tablecolumns}
           />
         </Styles>
@@ -73,21 +58,5 @@ class SEPracticePage extends Component {
     );
   }
 }
-
-// const SEPracticePage = () => {
-//   return (
-//     <div>
-//       <h2>Select SE Practice to get evidence for the claimed benefits</h2>
-//       <Dropdown />
-//       <Styles>
-//         <Table
-//           data={articles}
-//           columns={tablecolumns}
-//         />
-//       </Styles>
-//     </div>
-//   );
-// }
-
 export default SEPracticePage;
 
