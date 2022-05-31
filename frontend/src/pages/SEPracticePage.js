@@ -8,13 +8,12 @@ import Dropdown from "../components/dropDown";
 
 //this is an env.js file in src folder, import files must be located inside the src folder.
 import env from "../env";
-import SEPractices from "../dummyData/SEPractices";
 import axios from "axios";
 import '../App.css';
 
-const optionItems = SEPractices.map((SEPractice) => (
+/*const optionItems = SEPractices.map((SEPractice) => (
   <option key={SEPractice.practice}>{SEPractice.practice}</option>
-));
+));*/
 
 class SEPracticePage extends Component {
 
@@ -28,12 +27,16 @@ class SEPracticePage extends Component {
   //this is called, before browser render the page 
   componentDidMount() {
     axios.get(env.url)
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          articles: res.data
-        })
-      }).catch((e) => console.log("No Articles are Found"));
+            .then(res => {
+                let tempData = [];
+                console.log(res.data);
+                tempData = res.data.filter(
+                    (item) => item["moderated"] === true && item["analyzed"] === true
+                );
+                this.setState({
+                    articles: tempData
+                })
+            }).catch((e) => console.log("No Articles are Found"));
   }
 
   render() {
