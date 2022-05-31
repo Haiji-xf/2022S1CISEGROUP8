@@ -2,14 +2,17 @@
  * @Author: Tai Zhang
  */
 import React from "react";
-import SubmissionForm from "../components/submissionForm";
+import Search from "../components/search";
 
 const SearchArticle = () => {
     return (
         <div>
-            <h2>Search Article</h2>
-            <p>Please search </p>
+            <h2>Search any Articles you want</h2>
+            
+            <Search/>
 
         </div>
     );
 }
+
+export default SearchArticle;
