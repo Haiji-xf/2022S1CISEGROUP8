@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
 });
 
-module.exports = router;
+
 
 router.get('/', (req, res) => {
   Article.find()
@@ -28,3 +28,13 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ noarticlefound: 'No Articles are Found' }));
 
 });
+
+router.put('/:id', (req, res) => {
+  Article.findByIdAndUpdate(req.params.id, req.body)
+    .then(Article => res.json({ msg: 'Updated successfully' }))
+    .catch(err =>
+      res.status(400).json({ error: 'Unable to update the Database' })
+    );
+});
+
+module.exports = router;

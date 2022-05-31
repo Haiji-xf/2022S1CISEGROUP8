@@ -8,38 +8,93 @@ import Dropdown from "../components/dropDown.js";
 import env from "../env";
 import Styles from "../components/tableStyle";
 import Table from "../components/evidenceTable";
-import tableadmin from "../components/tableAdmin";
+//import tableadmin from "../components/tableAdmin";
 
 class AdminTable extends Component {
     constructor() {
         super();
-        this.state = {
-            articles: [],
-        };
+        return;
+       /*this.state = {
+            /*articles: [],
+            tableadmin: [
+                {
+                    Header: 'Moderated',
+                    accessor: 'moderated',
+                    Cell: (row) => {
+                        return (
+                            <button
+                                defaultChecked={row.value === true ? true : false}
+                                onClick={(e) => {
+                                        console.log("checked row = " + row.value);
+                                        //this.clearRows(parseInt(row.row.id));
+                                        this.checkThis();
+                                }}
+                            >
+                                moderate
+                            </button>
+                        );
+                    },
+                },
+                {
+                    Header: 'Title',
+                    accessor: 'title'
+                },
+                {
+                    Header: 'Authors',
+                    accessor: 'author'
+                },
+                {
+                    Header: 'Source',
+                    accessor: 'source'
+                },
+                {
+                    Header: 'Pub. Year',
+                    accessor: 'year'
+                },
+                {
+                    Header: 'DOI',
+                    accessor: 'doi'
+                },
+                {
+                    Header: 'Claimed Benefit',
+                    accessor: 'claimed'
+                },
+                {
+                    Header: 'Level of Evidence',
+                    accessor: 'evidence'
+                },
+            ]
+        };*/
     }
 
     //this is used for moderator and analyst
     state = {
         isChecked: false,
         isModerator: false,
-        tableAdmin: [
+        articles: [],
+        tableadmin: [
             {
                 Header: 'Moderated',
                 accessor: 'moderated',
                 Cell: (row) => {
                     return (
                         <input
-                            type="checkbox"
-                            defaultChecked={row.value === true ? true : false}
-                            onClick={(event) => {
-                                if (event.target.checked) {
-                                    console.log("checked row = " + row.row.id);
+                        type = "checkbox"    
+                        defaultChecked={row.value === true ? true : false}
+                            onClick={(e) => {
+                                    console.log(this.state.articles[row.row.id]["_id"])
+                                    console.log(this.state.articles[row.row.id]["moderated"])
+                                    let test = this.state.articles;
+                                    test[row.row.id]["moderated"] = !test[row.row.id]["moderated"];
+                                    this.setState({
+                                        articles : test
+                                    })
+                                    console.log(this.state.articles[row.row.id]["moderated"]);
                                     //this.clearRows(parseInt(row.row.id));
-
                                     this.checkThis();
-                                } else this.unclearRows(parseInt(row.row.id));
                             }}
-                        />
+                        >
+                        </input>
                     );
                 },
             },
@@ -87,13 +142,20 @@ class AdminTable extends Component {
     componentDidMount() {
         axios.get(env.url)
             .then(res => {
+                let tempData = [];
                 console.log(res.data);
+                tempData = res.data.filter(
+                    (item) => item["moderated"] === false && item["analyzed"] === false
+                );
                 this.setState({
-                    articles: res.data
+                    articles: tempData
                 })
             }).catch((e) => console.log("No Articles are Found"));
     }
+    
+    update(event) {
 
+    }
 
     render() {
         const articles = this.state.articles;
@@ -112,11 +174,11 @@ class AdminTable extends Component {
                 <Styles>
                     <Table
                         data={articleList}
-                        columns={tableadmin}
+                        columns={this.state.tableadmin}
                     />
-                    <input
-                        type="submit"
-                    />
+                    <button onClick={(e) => this.update(e)}>
+                        Submit all check item to database
+                    </button>
                 </Styles>
             </div>
         );
