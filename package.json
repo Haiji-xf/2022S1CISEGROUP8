@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install-client": "cd frontend && npm install",
+    "start": "node app.js",
     "develop": "concurrently --kill-others-on-fail \"npm run app\" \"npm start --prefix frontend\"",
-    "start": "concurrently --kill-others-on-fail \"npm run app\" \"npm start --prefix frontend\"",
     "app": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix mern && npm run build --prefix mern"
