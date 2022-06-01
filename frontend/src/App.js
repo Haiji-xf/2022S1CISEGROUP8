@@ -18,7 +18,7 @@ const App = () => {
         <h1>SPEED</h1>
         <ul className="header">
           <li><NavLink end to="/">Home</NavLink></li>
-          <li><NavLink to="/SEPracticePage">Select the Practice</NavLink></li>
+          <li><NavLink to="/SEPracticePage">Browse Articles</NavLink></li>
           <li><NavLink to="/SubmitArticle">Submit an Article</NavLink></li>
           <li><NavLink to="/Moderator">Moderater Page</NavLink></li>
           <li><NavLink to="/Analyze">Analyze Page</NavLink></li>
