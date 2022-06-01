@@ -42,7 +42,7 @@ class AnalyzeTable extends Component {
                                     let id = test[row.row.id]["_id"];
                                     let index = test[row.row.id]
                                     //Update the database
-                                    axios.put(env.url + "/" +  id, index)
+                                    axios.put("/api/article/" +  id, index)
                                     .then((res) => {
                                         alert("Successfully Analyzed!");
                                     })

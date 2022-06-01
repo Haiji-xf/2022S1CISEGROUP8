@@ -33,7 +33,7 @@ class managerTable extends Component {
                             //Get the id of the article
                             let id = test[row.row.id]["_id"];
                             axios
-                            .delete(env.url + "/" + id)
+                            .delete("/api/article/" + id)
                             .then((res) => {
                             alert("article successfully discarded");
                             window.location.reload();

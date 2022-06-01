@@ -40,7 +40,7 @@ class SubmissionForm extends Component {
       analyzed: this.state.analyzed,
     };
     //Post the data using axios
-    axios.post("http://localhost:5555/api/article/", data)
+    axios.post("/api/article/", data)
       .then(res => {
         this.setState({
           title: '',
