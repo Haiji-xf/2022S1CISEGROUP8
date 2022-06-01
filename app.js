@@ -20,8 +20,12 @@ app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => {
-    res.send("API is working!");
+// app.get('/', (req, res) => {
+//     res.send("API is working!");
+// });
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "build"));
 });
 
 app.use('/api/article', article);
