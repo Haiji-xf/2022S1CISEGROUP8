@@ -104,7 +104,7 @@ class managerTable extends Component {
 
     //this is called, before browser render the page 
     componentDidMount() {
-        axios.get(env.url)
+        axios.get("/api/article/")
             .then(res => {
                 console.log(res.data);
                 this.setState({

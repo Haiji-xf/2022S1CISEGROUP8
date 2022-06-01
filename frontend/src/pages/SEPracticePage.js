@@ -22,7 +22,7 @@ class SEPracticePage extends Component {
   }
   //this is called, before browser render the page 
   componentDidMount() {
-    axios.get(env.url)
+    axios.get("/api/article")
             .then(res => {
                 let tempData = [];
                 console.log(res.data);
