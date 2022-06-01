@@ -15,7 +15,7 @@ class AdminTable extends Component {
         return;
     }
 
-    //this is used for moderator and analyst
+    //this is used for moderator
     state = {
         isChecked: false,
         isModerator: false,
@@ -24,25 +24,33 @@ class AdminTable extends Component {
             {
                 Header: 'Moderated',
                 accessor: 'moderated',
+                //Create a checkbox in the cell
                 Cell: (row) => {
                     return (
                         <input
                         type = "checkbox"    
                         defaultChecked={row.value === true ? true : false}
+                            //Once user click the checkbox, it will reverse the value of moderated
                             onClick={(e) => {
                                     console.log(this.state.articles[row.row.id]["_id"])
                                     console.log(this.state.articles[row.row.id]["moderated"])
+                                    //Create a temporary array to hold all data
                                     let test = this.state.articles;
+                                    //Find the moderated attribute and change its value.
                                     test[row.row.id]["moderated"] = !test[row.row.id]["moderated"];
                                     this.setState({
                                         articles : test
                                     })
+                                    //Get id and content of that row
                                     let id = test[row.row.id]["_id"];
                                     let index = test[row.row.id]
+                                    //Update the database.
                                     axios.put(env.url + "/" +  id, index)
+                                    .then((res) => {
+                                        alert("Moderation Successful");
+                                    })
                                     .catch((err) => console.error("cannot modify"));
                                     console.log(this.state.articles[row.row.id]["moderated"]);
-                                    //this.clearRows(parseInt(row.row.id));
                             }}
                         >
                         </input>
@@ -94,6 +102,7 @@ class AdminTable extends Component {
                 let tempData = [];
                 console.log(res.data);
                 tempData = res.data.filter(
+                    //Use a filter to show articles that is not moderated or analyzed
                     (item) => item["moderated"] === false && item["analyzed"] === false
                 );
                 this.setState({
@@ -102,15 +111,16 @@ class AdminTable extends Component {
             }).catch((e) => console.log("No Articles are Found"));
     }
     
+    //Pops up an alert message and refresh the page
     update(event) {
         window.alert("modification successfully");
         window.location.reload();
     }
 
+    //Render the page 
     render() {
         const articles = this.state.articles;
         console.log("PrintBook: " + articles);
-        //in case that the article is const
         let articleList;
         if (!articles) {
             articleList = "Sorry, there is no book in database.";
@@ -127,12 +137,12 @@ class AdminTable extends Component {
                         columns={this.state.tableadmin}
                     />
                     <button onClick={(e) => this.update(e)}>
-                        Refresh the submit list
+                        Submit and Refresh the submit list
                     </button>
                 </Styles>
             </div>
         );
     }
 }
-//export default is to export everything
+
 export default AdminTable;

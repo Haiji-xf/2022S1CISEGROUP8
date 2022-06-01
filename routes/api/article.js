@@ -20,26 +20,43 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
 });
 
+//Route used to get all articles from database
 router.get('/', (req, res) => {
   Article.find()
     .then(Article => res.json(Article))
     .catch(err => res.status(404).json({ noarticlefound: 'No Articles are Found' }));
 });
 
+//Route used to update articles
 router.put("/:id", async (req, res, next) =>{
-  console.log(req.body.id);
-  console.log(req.params.id);
+
   var dataUpdate = req.body;
   var idUpdate = {_id : req.params.id};
   var newData= { $set: dataUpdate };
+  //Updateone function will update the article based on id and new data.
   Article.updateOne(idUpdate, newData, (err, res) =>{
     if(err)
       console.log("Something Wrong");
-    else
+    else{
       console.log("Successfully update");
+    }
+
 
   });
 });
 
+//Route used to delete an article
+router.delete("/:id", async (req, res)=>{
+  //findOneAndRemove function will find the articles based on an attribute and delete it
+  Article.findOneAndRemove({_id: req.params.id}, (err)=>{
+    if (err){
+      console.warn("failed to delete " + req.params.id);
+    }
+    else{
+      res.sendStatus(200);
+      console.warn("successful");
+    }
+  }
+);})
 
 module.exports = router;

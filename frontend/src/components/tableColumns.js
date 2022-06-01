@@ -22,6 +22,10 @@ const tablecolumns = [
     accessor: 'doi'
   },
   {
+    Header: 'Practice',
+    accessor: 'practice'
+  },
+  {
     Header: 'Claimed Benefit',
     accessor: 'claimed'
   },
@@ -31,7 +35,5 @@ const tablecolumns = [
   },
 ]
 
-let moderated = String;
 
 module.exports = tablecolumns
-  //export default tablecolumns;

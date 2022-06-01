@@ -1,5 +1,5 @@
 /*
- * This is used as a prototype for Analyst
+ * This is used as a prototype for Moderator and Analyst
  */
 //The MongoDB should contain 2 boolean var -- Moderated and Analyzed
 import React, { Component } from "react";
@@ -9,50 +9,60 @@ import env from "../env";
 import Styles from "../components/tableStyle";
 import Table from "../components/evidenceTable";
 
-class AnalyzeTable extends Component {
+class managerTable extends Component {
     constructor() {
         super();
         return;
     }
 
-    //this is used for analyst
+    //this is used for administrator
     state = {
         isChecked: false,
         isModerator: false,
         articles: [],
         tableadmin: [
             {
+                Header: 'Delete',
+                accessor: 'delete',
+                Cell: (row) => {
+                    return(
+                        //Add a button to delete any articles, once deleted, refresh the page
+                        <button onClick={(e) => {
+                            //Create a temporary array to hold the data
+                            let test = this.state.articles;
+                            //Get the id of the article
+                            let id = test[row.row.id]["_id"];
+                            axios
+                            .delete(env.url + "/" + id)
+                            .then((res) => {
+                            alert("article successfully discarded");
+                            window.location.reload();
+                            })
+                            .catch((err) => console.log("something bad happened!"))
+                        }}
+                        >
+                            Delete
+                        </button>
+                    )
+                }
+            },
+            {
+                //Change boolean value in to string
+                Header: 'Moderate',
+                accessor: 'moderated',
+                Cell: (row) => {
+                    row.value.toString();
+                    return (row.value.toString());
+                }
+            },
+            {
+                //Change boolean value in to string
                 Header: 'Analyzed',
                 accessor: 'analyzed',
-                //Create a cell for checkbox
                 Cell: (row) => {
-                    return (
-                        <input
-                        type = "checkbox"
-                        defaultChecked={row.value === true ? true : false}
-                            //Once the analyst click the checkbox, it will reverse the value of  "analyzed".
-                            onClick={(e) => {
-                                    console.log(this.state.articles[row.row.id]["_id"])
-                                    console.log(this.state.articles[row.row.id]["analyzed"])
-                                    let test = this.state.articles;
-                                    test[row.row.id]["analyzed"] = !test[row.row.id]["analyzed"];
-                                    this.setState({
-                                        articles : test
-                                    })
-                                    let id = test[row.row.id]["_id"];
-                                    let index = test[row.row.id]
-                                    //Update the database
-                                    axios.put(env.url + "/" +  id, index)
-                                    .then((res) => {
-                                        alert("Successfully Analyzed!");
-                                    })
-                                    .catch((err) => console.error("cannot analyzed"));
-                                    console.log(this.state.articles[row.row.id]["analyzed"]);
-                            }}
-                        >
-                        </input>
-                    );
-                },
+                    row.value.toString();
+                    return (row.value.toString());
+                }
             },
             {
                 Header: 'Title',
@@ -96,28 +106,21 @@ class AnalyzeTable extends Component {
     componentDidMount() {
         axios.get(env.url)
             .then(res => {
-                let tempData = [];
                 console.log(res.data);
-                //Use a filter to only show articles that is moderated.
-                tempData = res.data.filter(
-                    (item) => item["moderated"] === true && item["analyzed"] === false
-                );
                 this.setState({
-                    articles: tempData
+                    articles: res.data
                 })
             }).catch((e) => console.log("No Articles are Found"));
     }
-    
-    //Pops up an alert message and refresh the page
+    //Update function, reload the page
     update(event) {
-        window.alert("analyzed successfully");
         window.location.reload();
     }
 
-    //Render the page
     render() {
         const articles = this.state.articles;
         console.log("PrintBook: " + articles);
+        //in case that the article is const
         let articleList;
         if (!articles) {
             articleList = "Sorry, there is no book in database.";
@@ -126,7 +129,7 @@ class AnalyzeTable extends Component {
         }
         return (
             <div>
-                <h2>Welcom Analyst, Please check the Articles</h2>
+                <h2>Welcom Administrator, You can delete useless articles here</h2>
                 <Dropdown />
                 <Styles>
                     <Table
@@ -134,12 +137,12 @@ class AnalyzeTable extends Component {
                         columns={this.state.tableadmin}
                     />
                     <button onClick={(e) => this.update(e)}>
-                        Submit and Refresh the list
+                        Refresh the list
                     </button>
                 </Styles>
             </div>
         );
     }
 }
-
-export default AnalyzeTable;
+//export default is to export everything
+export default managerTable;

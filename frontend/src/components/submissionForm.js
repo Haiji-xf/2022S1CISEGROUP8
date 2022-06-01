@@ -1,7 +1,6 @@
-//Done all together 
+
 import React, { Component } from "react";
-//import { useForm } from "react-hook-form";
-//import { useForm } from "react-hook-form";
+
 import axios from 'axios';
 
 class SubmissionForm extends Component {
@@ -27,20 +26,20 @@ class SubmissionForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
+    //Give value to each attribute
     const data = {
       title: this.state.title,
       author: this.state.author,
       source: this.state.source,
       year: this.state.year,
       doi: this.state.doi,
+      practice: this.state.practice,
       claimed: this.state.claimed,
       evidence: this.state.evidence,
       moderated: this.state.moderated,
       analyzed: this.state.analyzed,
-      practice: this.state.practice,
     };
-
+    //Post the data using axios
     axios.post("http://localhost:5555/api/article/", data)
       .then(res => {
         this.setState({
@@ -55,9 +54,9 @@ class SubmissionForm extends Component {
           analyzed: false,
           practice: '',
         })
-        this.props.history.push('/');
       })
       .catch(error => {
+        console.log(error);
         console.log("Error in submission");
       })
 
@@ -65,6 +64,7 @@ class SubmissionForm extends Component {
   render() {
 
     return (
+      //Create a form to submit
       <form noValidate onSubmit={this.onSubmit}>
         <div className="group">
           <input
@@ -131,6 +131,7 @@ class SubmissionForm extends Component {
           </input>
           <br />
         </div>
+
 
         <div className="group">
           <input

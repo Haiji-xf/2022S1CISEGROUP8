@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import articles from "../dummyData/articles";
 
 import Styles from "../components/tableStyle";
 import Table from "../components/evidenceTable";
@@ -11,9 +10,6 @@ import env from "../env";
 import axios from "axios";
 import '../App.css';
 
-/*const optionItems = SEPractices.map((SEPractice) => (
-  <option key={SEPractice.practice}>{SEPractice.practice}</option>
-));*/
 
 class SEPracticePage extends Component {
 
@@ -30,6 +26,7 @@ class SEPracticePage extends Component {
             .then(res => {
                 let tempData = [];
                 console.log(res.data);
+                //Use a filter to only show articles that is analyzed and moderated
                 tempData = res.data.filter(
                     (item) => item["moderated"] === true && item["analyzed"] === true
                 );
@@ -39,6 +36,7 @@ class SEPracticePage extends Component {
             }).catch((e) => console.log("No Articles are Found"));
   }
 
+  //Render the page
   render() {
     const articles = this.state.articles;
     console.log("PrintBook: " + articles);
@@ -50,7 +48,7 @@ class SEPracticePage extends Component {
     }
     return (
       <div>
-        <h2>Select SE Practice to get evidence for the claimed benefits</h2>
+        <h2>Check all the analyzed article</h2>
         <Dropdown />
         <Styles>
           <Table

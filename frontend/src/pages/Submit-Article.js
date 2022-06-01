@@ -7,7 +7,7 @@ const SubmitArticle = () => {
      return (
       <div>
         <h2>Submit Article</h2>
-            <p>This will be a form to allow submitters to submit an article for possible inclusion in our SEPER repo.</p>
+            <p>Fill in the submission form to submit an article to SPEED.</p>
             <SubmissionForm/>
         </div>
     );
