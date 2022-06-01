@@ -1,3 +1,6 @@
+/*
+ * @Author: Tai Zhang
+ */
 import React, { Component } from "react";
 //import articles from "../dummyData/articles";
 
@@ -10,10 +13,12 @@ import Dropdown from "../components/dropDown";
 import env from "../env";
 import axios from "axios";
 import '../App.css';
+import SEPractices from "../dummyData/SEPractices";
 
-/*const optionItems = SEPractices.map((SEPractice) => (
+//this is used for the dropdown se practice
+const optionItems = SEPractices.map((SEPractice) =>
   <option key={SEPractice.practice}>{SEPractice.practice}</option>
-));*/
+);
 
 class SEPracticePage extends Component {
 
@@ -27,16 +32,16 @@ class SEPracticePage extends Component {
   //this is called, before browser render the page 
   componentDidMount() {
     axios.get(env.url)
-            .then(res => {
-                let tempData = [];
-                console.log(res.data);
-                tempData = res.data.filter(
-                    (item) => item["moderated"] === true && item["analyzed"] === true
-                );
-                this.setState({
-                    articles: tempData
-                })
-            }).catch((e) => console.log("No Articles are Found"));
+      .then(res => {
+        let tempData = [];
+        console.log(res.data);
+        tempData = res.data.filter(
+          (item) => item["moderated"] === true && item["analyzed"] === true
+        );
+        this.setState({
+          articles: tempData
+        })
+      }).catch((e) => console.log("No Articles are Found"));
   }
 
   render() {
@@ -51,7 +56,17 @@ class SEPracticePage extends Component {
     return (
       <div>
         <h2>Select SE Practice to get evidence for the claimed benefits</h2>
-        <Dropdown />
+
+
+        <Styles>
+          <Dropdown
+            title="Please Select SE Practice"
+            optionItems={optionItems}
+            handleChang={this.handleChange}
+          />
+
+        </Styles>
+
         <Styles>
           <Table
             data={articleList}
