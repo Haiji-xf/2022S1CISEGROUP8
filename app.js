@@ -28,6 +28,7 @@ const port = process.env.PORT || 5555;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
-app.get('/', (req, res) => {
-    res.send("API is working");
-});
+app.use(express.static(path.join(__dirname, "/frontend/build")));
+    app.get('*', (req,res) => {
+        res.sendFile(path.join(__dirname,'front','build','index.html'));
+   });
